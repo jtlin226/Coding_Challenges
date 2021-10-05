@@ -22,19 +22,21 @@ public class Driver {
         int lastDigit = numbers.remove(numbers.size() - 1);
         // reverse the list
         Collections.reverse(numbers);
-        // double the value of each element
-        List<Integer> doubledNumbers = numbers.stream().map(x -> x * 2).collect(Collectors.toList());
+        // double the value of every other element
+        for(int x = 0; x < numbers.size(); x+=2) {
+            numbers.set(x, numbers.get(x) * 2);
+        }
 
         // add digits together if have more than 1 digit
         List<Integer> finalList = new ArrayList<>();
-        for(int x = 0; x < doubledNumbers.size(); x++) {
-            if(doubledNumbers.get(x) > 9) {
-                String s = doubledNumbers.get(x).toString();
+        for(int x = 0; x < numbers.size(); x++) {
+            if(numbers.get(x) > 9) {
+                String s = numbers.get(x).toString();
                 int newX = Character.getNumericValue(s.charAt(0)) + Character.getNumericValue(s.charAt(1));
                 finalList.add(newX);
                 continue;
             }
-            finalList.add(doubledNumbers.get(x));
+            finalList.add(numbers.get(x));
         }
         // sum up the values
         int sum = 0;
@@ -49,10 +51,10 @@ public class Driver {
         // System.out for debugging
         System.out.println("Original Sequence: " + Arrays.toString(digits));
         System.out.println("Removed Last Digit: " + lastDigit);
-        System.out.println("Reversed Numbers: " + numbers.toString());
-        System.out.println("Doubled List: " + doubledNumbers);
+        System.out.println("Doubled List: " + numbers);
         System.out.println("Final List: " + finalList.toString());
         System.out.println("Sum of Values: " + sum);
+        System.out.println("Value: " + result);
 
         // return true or false
         return result == lastDigit;
@@ -62,5 +64,11 @@ public class Driver {
         System.out.println("Result: " + creditCardNumberCheck(123_456_789_123_456_789L));
         System.out.println();
         System.out.println("Result: " + creditCardNumberCheck(123_456_789L));
+        System.out.println();
+        System.out.println("Result: " + creditCardNumberCheck(789L));
+        System.out.println();
+        System.out.println("Result: " + creditCardNumberCheck(1234567890123456L));
+        System.out.println();
+        System.out.println("Result: " + creditCardNumberCheck(1234567890123452L));
     }
 }
